@@ -1,8 +1,35 @@
 from django.db import models
+class Room_Type(models.Model):
+    """Django data model Room_Type"""
+    ROOM_CATEGORIES={
+    ('Elt','Elite'),
+    ('Lux','Luxury'),
+    ('Sig','Signature')
+    }
 
-# Create your models here.
-class Rooms(models.Model):
-    type_room = models.CharField(blank=True, max_length=100)
-    room_description= models.CharField(blank=True, max_length=100)
     image = models.ImageField(upload_to="pics")
-    Price = models.IntegerField(blank=True, null=True)
+    roomtype = models.CharField(choices=ROOM_CATEGORIES,max_length=20)
+    price = models.CharField(blank=True, max_length=100)
+    def __str__(self):
+        return f'{self.roomtype}'
+
+#class Price(models.Model):
+##    """Django data model Price"""
+#    room_type=models.ForeignKey(Room_Type, #on_delete=models.CASCADE)
+
+
+#    class Meta:
+#        verbose_name = 'Price'
+#        verbose_name_plural = 'Prices'
+
+
+class Room(models.Model):
+    room=Room_Type()
+    #price=models.ForeignKey(Room_Type,     on_delete=models.CASCADE,default='')
+    room_no = models.IntegerField(blank=True, null=True)
+    room_type=models.ForeignKey(Room_Type, on_delete=models.CASCADE)
+    beds = models.IntegerField(blank=True, null=True)
+    capacity = models.IntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return f'Room No {self.room_no} in {self.room_type} Categoriy with {self.beds} beds for {self.capacity} people'

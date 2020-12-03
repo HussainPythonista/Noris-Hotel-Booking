@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'login',
-    'mainapp'
+    'mainapp',
+    'booking'
 ]
 
 MIDDLEWARE = [
@@ -78,7 +79,7 @@ WSGI_APPLICATION = 'Hotel.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME':'hotelbooking',
+        'NAME':'bookhotel',
         'USER':'postgres',
         'PASSWORD':'postgres',
         'HOST':'localhost'
