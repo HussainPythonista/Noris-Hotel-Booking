@@ -22,7 +22,6 @@ class Room_Type(models.Model):
 #        verbose_name = 'Price'
 #        verbose_name_plural = 'Prices'
 
-
 class Room(models.Model):
     room=Room_Type()
     #price=models.ForeignKey(Room_Type,     on_delete=models.CASCADE,default='')

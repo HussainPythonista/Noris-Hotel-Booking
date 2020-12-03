@@ -14,6 +14,10 @@ def login(request):
             messages.error(request,"Not found in database")
             return render(request,'app/login.html')
     return render(request,'app/login.html')
+def logout(request):
+    auth.logout(request)
+    return redirect('/')
+    
 def register(request):
     if request.method=='POST':
         first_name=request.POST['first_name']

@@ -5,10 +5,7 @@
 
 {% block content %}
 
-
 {% for room in rooms %}
-
-
 
 <div class="destination item">
     <div class="destination_image">
@@ -16,8 +13,6 @@
         <img src="{{room.image.url}}" alt="">
 
         {% if  room.offer %}
-
-
 
         <div class="spec_offer text-center"><a href="#">Special Offer</a></div>
         {% endif %}
@@ -29,8 +24,8 @@
         <div class="destination_subtitle">
 
         </div>
-        <div class="destination_price">From ${{room.start_price}}</div>
-        <button type="button" class="btn btn-secondary btn-lg btn-block">Book {{room.type_room}}</button>
+        <div class="destination_price">From ${{room.price}}</div>
+        <button type="button" class="btn btn-secondary btn-lg btn-block"><a href="{% url 'booking' %}" >Book {{room.roomtype}}</button>
     </div>
 </div>
 {% endfor %}
