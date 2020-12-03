@@ -1,0 +1,12 @@
+This Booking Functions Folder contains some conditions
+P2BN-->Person to book now
+P2BB-->Person to Book before P2BN Person
+p2BA-->Person to Book after P2BN Person
+
+  If we want do some book a room in one specifictime we must consider some conditions
+    1).What is the time Booking
+    2).Which is already booked
+    3).Room is free or Not
+    4).If room is free but P2BB person booked ,then the room allocate for P2BB Person
+    5).If room is free not booked before the P2BN ,Then room is allocate for P2BN
+    6).If room not free some one occupied the room

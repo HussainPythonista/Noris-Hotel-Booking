@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'login',
     'mainapp',
-    'booking'
+    'booking',
+    'booking.bookingFunction'#Fro access allover module
 ]
 
 MIDDLEWARE = [
