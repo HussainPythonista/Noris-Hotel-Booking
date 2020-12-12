@@ -1,8 +1,50 @@
+
+import datetime
+from django.contrib.auth.models import User
+from django.http.response import HttpResponse
+from mainapp.models import Room_Type,Room
 from django.shortcuts import render
+from .bookingFunction import avalablity
+from .models import Booking
 
 # Create your views here.
-def booking(request):
+
+#The Objectives of Room
+#1) . Make a booking form for a user
+#2).The User provides only dates and categories
+#3).The User remain unaware of room no.A room from the category is randomly booked
+#4).Use the Avaliblity function to check the room avaliblity
+def booking(request,room):
     if request.method=='POST':
-        check_out=request.POST['check_out']
-        print(check_out)
-    return render(request,'app/book.html')
+    #This is from booking page
+        get_roomType=Room_Type.objects.get(roomtype=request.POST['type'])
+        roomid=get_roomType.id
+        getout=request.POST['check_out']  
+        check_out=datetime.datetime.strptime(getout,'%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M:%S+00:00')
+        getin=request.POST['check_in']  
+        check_in=datetime.datetime.strptime(getin,'%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M:%S+00:00')
+        check_in=datetime.datetime.strptime(check_in,'%Y-%m-%d %H:%M:%S+00:00')
+        check_out=(datetime.datetime.strptime(check_out,'%Y-%m-%d %H:%M:%S+00:00'))
+        print(type(check_out))
+    #This can set the values id to roomtype id
+        room_list=Room.objects.filter(room_type_id=get_roomType)
+        user_book=request.user
+        avalible_rooms=[]
+        for room in room_list:
+            if avalablity.check_avaliblity(room,check_in,check_out):
+                avalible_rooms.append(room)
+                if len(avalible_rooms)>0:
+                    room=avalible_rooms
+                    book_room=Booking.objects.create(
+                        user=user_book,
+                        room=room,
+                        Check_in=check_in,
+                        Check_out=check_out
+                    )
+                    book_room.save()
+                    return HttpResponse(book_room)
+            else:
+                return HttpResponse("Not found")
+    type_of_room=Room_Type.objects.get(roomtype=room)
+    context={'type':type_of_room}
+    return render(request,'app/book.html',context)

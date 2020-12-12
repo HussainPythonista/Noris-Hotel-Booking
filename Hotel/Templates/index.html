@@ -25,7 +25,7 @@
 
         </div>
         <div class="destination_price">From ${{room.price}}</div>
-        <button type="button" class="btn btn-secondary btn-lg btn-block"><a href="{% url 'booking' %}" >Book {{room.roomtype}}</button>
+        <button type="button" class="btn btn-secondary btn-lg btn-block"><a href="{% url 'booking' room.roomtype %}" >Book {{room.roomtype}}</button>
     </div>
 </div>
 {% endfor %}

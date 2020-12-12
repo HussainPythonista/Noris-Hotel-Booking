@@ -23,7 +23,6 @@ class Room_Type(models.Model):
 #        verbose_name_plural = 'Prices'
 
 class Room(models.Model):
-    room=Room_Type()
     #price=models.ForeignKey(Room_Type,     on_delete=models.CASCADE,default='')
     room_no = models.IntegerField(blank=True, null=True)
     room_type=models.ForeignKey(Room_Type, on_delete=models.CASCADE)
