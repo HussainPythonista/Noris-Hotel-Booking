@@ -32,17 +32,20 @@ def booking(request,room):
         avalible_rooms=[]
         for room in room_list:
             if avalablity.check_avaliblity(room,check_in,check_out):
-                
+                avalible_rooms.append(room)
+                for room_book in avalible_rooms:
+                    roomForBook=room_book
                 if len(avalible_rooms)>0:
                     book_room=Booking.objects.create(
                         user=request.user,
-                        room=room,
+                        room=roomForBook,
                         Check_in=check_in,
                         Check_out=check_out
                     )
                     book_room.save()
                     return HttpResponse(book_room)
-            
+                else:
+                    return HttpResponse("The room is not avalible")
     type_of_room=Room_Type.objects.get(roomtype=room)
     context={'type':type_of_room}
     return render(request,'app/book.html',context)
