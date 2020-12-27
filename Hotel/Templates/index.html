@@ -5,28 +5,28 @@
 
 {% block content %}
 
-{% for room in rooms %}
+{% for roomCate,roomUrl in rooms_list %}
 
 <div class="destination item">
     <div class="destination_image">
 
-        <img src="{{room.image.url}}" alt="">
+        <img src="{{roomUrl.image.url}}" alt="">
 
         {% if  room.offer %}
 
         <div class="spec_offer text-center"><a href="#">Special Offer</a></div>
         {% endif %}
     </div>
-
     <div class="destination_content">
 
 
         <div class="destination_subtitle">
 
         </div>
-        <div class="destination_price">From ${{room.price}}</div>
-        <button type="button" class="btn btn-secondary btn-lg btn-block"><a href="{% url 'booking' room.roomtype %}" >Book {{room.roomtype}}</button>
-    </div>
+        <div class="destination_price"></div>  
+        <button type="button" class="btn btn-secondary btn-lg btn-block"><a href="booking/booking/{{roomUrl.roomtype }}" >Book {{roomCate}}</button>
+       
+    </div>    
 </div>
 {% endfor %}
 {% endblock content %}

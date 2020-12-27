@@ -33,19 +33,32 @@ def booking(request,room):
         for room in room_list:
             if avalablity.check_avaliblity(room,check_in,check_out):
                 avalible_rooms.append(room)
-                for room_book in avalible_rooms:
+        for room_book in avalible_rooms:
                     roomForBook=room_book
-                if len(avalible_rooms)>0:
-                    book_room=Booking.objects.create(
-                        user=request.user,
-                        room=roomForBook,
-                        Check_in=check_in,
-                        Check_out=check_out
-                    )
-                    book_room.save()
-                    return HttpResponse(book_room)
-                else:
+                    if len(avalible_rooms)>0:
+                        book_room=Booking.objects.create(
+                            user=request.user,
+                            room=roomForBook,
+                            Check_in=check_in,
+                            Check_out=check_out
+                        )
+                        book_room.save()
+                        return HttpResponse(book_room)
+        else:
                     return HttpResponse("The room is not avalible")
-    type_of_room=Room_Type.objects.get(roomtype=room)
-    context={'type':type_of_room}
+    rooms=Room_Type.objects.all()#For get all Room_Type
+    roomCate=dict(sorted(Room_Type.ROOM_CATEGORIES,reverse=True)).values()
+    zipped=zip(roomCate,rooms)
+    room_in_list=Room_Type.objects.get(roomtype=room)#Get clicked values
+    str_roomlist=str(room_in_list)#It only get values in string format only so we change values in str formate
+    values_roomList=dict(Room_Type.ROOM_CATEGORIES).get(str_roomlist)
+    list_element=[]
+    for _ in range(1):
+        list_element.append((str_roomlist,values_roomList))
+    print(list_element)
+    context={
+    'types':zipped,
+    'room_in_list':list_element
+    }
+
     return render(request,'app/book.html',context)

@@ -13,15 +13,6 @@ class Room_Type(models.Model):
     def __str__(self):
         return f'{self.roomtype}'
 
-#class Price(models.Model):
-##    """Django data model Price"""
-#    room_type=models.ForeignKey(Room_Type, #on_delete=models.CASCADE)
-
-
-#    class Meta:
-#        verbose_name = 'Price'
-#        verbose_name_plural = 'Prices'
-
 class Room(models.Model):
     #price=models.ForeignKey(Room_Type,     on_delete=models.CASCADE,default='')
     room_no = models.IntegerField(blank=True, null=True)

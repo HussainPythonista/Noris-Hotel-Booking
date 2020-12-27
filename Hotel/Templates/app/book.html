@@ -113,11 +113,14 @@
 							</div>
 							<div class="form-group">
 								<span class="form-label">Room Type</span><br>
-									<select class="form-control" name='type' required >
-										<option value="{{type}}" selected hidden>{{type}}</option>
-										<option>Elt</option>
-										<option>Sig</option>
-										<option>Lux</option>
+									<select class="form-control" name='type' value={{room_in_list}} required >
+											{% for type1,Cate in room_in_list %}
+												<option value="{{type1}}">{{Cate}}</option>
+											{% endfor %}
+											{% for value,type in types %}
+												<option value="{{type}}">{{value}}</option>
+											{% endfor %}
+										
 									</select>
 																	
 								<span class="select-arrow"></span>
