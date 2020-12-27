@@ -10,6 +10,7 @@ def login(request):
         if user is not None:
             auth.login(request,user)
             print("Success")
+            return redirect('/')
         else:
             messages.error(request,"Not found in database")
             return render(request,'app/login.html')
@@ -32,10 +33,12 @@ def register(request):
             elif User.objects.filter(email=email).exists():
                 messages.error(request, 'Email is already exists')
             else:
-                messages.error(request,'User Created')
+                
                 user=User.objects.create_user(username=username,password=password1,email=email,first_name=first_name,last_name=last_name)
                 user.save()
-                #return render(request,'app/register.html',{'messages':messages})
+                messages.error(request,'User Created')
+                return render(request,'app/login.html')
+                #return redirect('/')
 
         else:
             messages.error(request, 'Password must be same')
